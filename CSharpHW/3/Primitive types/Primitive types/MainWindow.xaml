@@ -1,0 +1,31 @@
+﻿<Window x:Class="Primitive_types.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Primitive_types"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="750">
+    <Grid>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="350" Margin="50,50,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="listBox_SelectionChanged">
+            <ListBoxItem>SByte</ListBoxItem>
+            <ListBoxItem>Int16</ListBoxItem>
+            <ListBoxItem>Int32</ListBoxItem>
+            <ListBoxItem>Int64</ListBoxItem>
+            <ListBoxItem>Byte</ListBoxItem>
+            <ListBoxItem>UInt16</ListBoxItem>
+            <ListBoxItem>UInt32</ListBoxItem>
+            <ListBoxItem>UInt64</ListBoxItem>
+            <ListBoxItem>Float</ListBoxItem>
+            <ListBoxItem>Double</ListBoxItem>
+            <ListBoxItem>Decimal</ListBoxItem>
+        </ListBox>
+        <TextBox x:Name="maxValueText" HorizontalAlignment="Left" Height="35" Margin="400,50,0,0" TextWrapping="Wrap" Text="Max value" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="minValueText" HorizontalAlignment="Left" Height="35" Margin="400,100,0,0" TextWrapping="Wrap" Text="Min value" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="defaultValueText" HorizontalAlignment="Left" Height="35" Margin="400,150,0,0" TextWrapping="Wrap" Text="Default value" VerticalAlignment="Top" Width="200"/>
+        <Label x:Name="maxLabel" Content="MAX" HorizontalAlignment="Left" Height="35" Margin="275,50,0,0" VerticalAlignment="Top" Width="80"/>
+        <Label x:Name="minLabel" Content="MIN" HorizontalAlignment="Left" Height="35" Margin="275,100,0,0" VerticalAlignment="Top" Width="80"/>
+        <Label x:Name="defaultLabel" Content="Default" HorizontalAlignment="Left" Height="35" Margin="275,150,0,0" VerticalAlignment="Top" Width="80"/>
+
+    </Grid>
+</Window>
