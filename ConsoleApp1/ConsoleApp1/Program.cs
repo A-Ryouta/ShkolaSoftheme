@@ -10,6 +10,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+<<<<<<< HEAD
             int n = 1, i = 0;
             Console.ForegroundColor = ConsoleColor.Red;
             /*
@@ -39,7 +40,64 @@ namespace ConsoleApp1
 
             Console.BackgroundColor = ConsoleColor.Green;            
             Console.WriteLine("Hi!");
+=======
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Red;
+            
+            string singleStr = "*";
+            string str = "*****";
+            StringBuilder strBuild = new StringBuilder("*****");
+                        
+            pyramidByTwoLoops(singleStr);            
+            pyramidByOneLoop(singleStr);
+            pyramidByString(str);
+            pyramidByStringBuilder(strBuild);           
+
+            //Console.WriteLine("Hi!");
+>>>>>>> 223bccabee16e80192bbc7c0ed8b97db2b53b85c
             Console.ReadLine();
         }
-    }
+
+        static void pyramidByTwoLoops(string s)
+        {
+            for (int i = 5; i > 0; i--)
+            {
+                for (int j = i; j > 0; j--)
+                {
+                    Console.Write(s);
+                }
+                Console.WriteLine();
+            }
+        }
+        static void pyramidByOneLoop(string s)
+        {
+            int i = 5, n = 0;
+            do
+            {
+                Console.Write(s);
+                i--;
+                if (i == n)
+                {
+                    Console.WriteLine();
+                    i = 5;
+                    n++;
+                }
+            } while (n != 5);
+        }
+        static void pyramidByString(string s)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(s.Remove(0, i));
+            }
+        }
+        static void pyramidByStringBuilder(StringBuilder s)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(s);
+                s.Remove(0, 1);
+            }
+        }        
+    }    
 }
