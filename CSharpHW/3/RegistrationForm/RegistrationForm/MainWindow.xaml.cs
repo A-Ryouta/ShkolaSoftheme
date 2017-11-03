@@ -28,48 +28,24 @@ namespace RegistrationForm
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            lettersCheck(FirstName, ref msg);
-            lengthCheck(FirstName, ref msg);
+            lettersCheck(firstName.Text, firstName.Uid, ref msg);
+            lengthCheck(firstName.Text, firstName.Uid, ref msg);
 
-            lettersCheck(LastName, ref msg);
-            lengthCheck(LastName, ref msg);
+            lettersCheck(lastName.Text, lastName.Uid, ref msg);
+            lengthCheck(lastName.Text, lastName.Uid, ref msg);
 
-            //dateCheck(ref msg);
-            if (tryNumbersCheck(day, ref msg))
-            {
-                int d = int.Parse(day.Text);
-                if (d < 1 || d > 31)
-                {
-                    msg.Append("Day should be from 1 to 31\n");
-                }
-            }
-            if (tryNumbersCheck(month, ref msg))
-            {
-                int m = int.Parse(month.Text);
-                if (m < 1 || m > 12)
-                {
-                    msg.Append("Day should be from 1 to 12\n");
-                }
-            }
-            if (tryNumbersCheck(year, ref msg))
-            {
-                int y = int.Parse(year.Text);
-                if (y < 1901 || y > DateTime.Now.Year)
-                {
-                    msg.Append("Day should be from 1901 to now\n");
-                }
-            }
+            dateCheck(day.Text, month.Text, year.Text, ref msg);            
 
-            if (!EMail.Text.Contains("@"))
+            if (!eMail.Text.Contains("@"))
             {
                 msg.Append("EMail should contain @\n");
             }
-            lengthCheck(EMail, ref msg);
+            lengthCheck(eMail.Text, eMail.Uid, ref msg);
 
-            numbersCheck(PhoneNumber, ref msg);
-            staticLengthCheck(PhoneNumber, ref msg, 12);
+            numbersCheck(phoneNum.Text, phoneNum.Uid, ref msg);
+            staticLengthCheck(phoneNum.Text, phoneNum.Uid, ref msg, 12);
 
-            lengthCheck(AdditionalInformation, ref msg, 2000);
+            lengthCheck(addInfo.Text, addInfo.Uid, 2000, ref msg);
 
             if (msg.Length == 0)
             {
@@ -81,77 +57,75 @@ namespace RegistrationForm
             }
             msg.Clear();
         }
-        static void lengthCheck(TextBox t, ref StringBuilder s)
+        static void lengthCheck(string text, string name, ref StringBuilder sb)
         {            
-            if (t.Text.Length > 255)
+            if (text.Length > 255)
             {
-                s.Append(t.Name + " is out of maximum length\n");
+                sb.Append(name + " is out of maximum length\n");
             }
         }
-        static void lengthCheck(TextBox t, ref StringBuilder s, int length)
+        static void lengthCheck(string text, string name, int length, ref StringBuilder sb)
         {
-            if (t.Text.Length > length)
+            if (text.Length > length)
             {
-                s.Append(t.Name + " is out of maximum length\n");
+                sb.Append(name + " is out of maximum length\n");
             }
         }
-        static void staticLengthCheck(TextBox t, ref StringBuilder s, int staticLength = 255)
+        static void staticLengthCheck(string text, string name, ref StringBuilder sb, int staticLength = 255)
         {
-            if (t.Text.Length != staticLength)
+            if (text.Length != staticLength)
             {
-                s.Append(t.Name + " should have " + staticLength + " symbols\n");
+                sb.Append(name + " should have " + staticLength + " symbols\n");
             }
         }
-        static void lettersCheck(TextBox t, ref StringBuilder s)
+        static void lettersCheck(string text, string name, ref StringBuilder sb)
         {
-            if (!t.Text.All(chr => char.IsLetter(chr)))
+            if (!text.All(chr => char.IsLetter(chr)))
             {
-                s.Append(t.Name + " must contains only letters\n");
+                sb.Append(name + " must contains only letters\n");
             }
         }
-        static void numbersCheck(TextBox t, ref StringBuilder s)
+        static void numbersCheck(string text, string name, ref StringBuilder sb)
         {
-            if (!t.Text.All(chr => char.IsDigit(chr)))
+            if (!text.All(chr => char.IsDigit(chr)))
             {
-                s.Append(t.Name + " must contains only digits\n");
+                sb.Append(name + " must contains only digits\n");
             }
         }
-        static bool tryNumbersCheck(TextBox t, ref StringBuilder s)
+        static bool tryNumbersCheck(string text, string name, ref StringBuilder sb)
         {
             bool check = true;
-            if (!t.Text.All(chr => char.IsDigit(chr)))
+            if (!text.All(chr => char.IsDigit(chr)))
             {
                 check = false;
-                s.Append(t.Name + " must contains only digits\n");
+                sb.Append(name + " must contains only digits\n");
             }
             return check;
         }
-        static void dateCheck(ref StringBuilder msg)
+        static void dateCheck(string d, string m, string y, ref StringBuilder sb)
         {
-            MainWindow mainWin = new MainWindow();
-
-            if(tryNumbersCheck(mainWin.day, ref msg))
+            if (tryNumbersCheck(d, "day", ref sb))
             {
-                int d = int.Parse(mainWin.day.Text);
-                if (d < 1 || d > 31)
+                int day = int.Parse(d);
+                if (day < 1 || day > 31)
                 {
-                    msg.Append("Day should be from 1 to 31\n");
+                    sb.Append("Day should be from 1 to 31\n");
                 }
             }
-            if(tryNumbersCheck(mainWin.month, ref msg))
+            if(tryNumbersCheck(m, "month",ref sb))
             {
-                int m = int.Parse(mainWin.month.Text);
-                if (m < 1 || m > 12)
+                int month = int.Parse(m);
+                if (month < 1 || month > 12)
                 {
-                    msg.Append("Day should be from 1 to 12\n");
+                    sb.Append("Month should be from 1 to 12\n");
                 }
             }
-            if (tryNumbersCheck(mainWin.year, ref msg))
+            if (tryNumbersCheck(y, "year",ref sb))
             {
-                int y = int.Parse(mainWin.year.Text);
-                if (y < 1901 || y > DateTime.Now.Year)
+                int year = int.Parse(y);
+                if (year < 1901 || year > DateTime.Now.Year)
                 {
-                    msg.Append("Day should be from 1901 to now\n");
+                    sb.Append("Year should be from 1901 to now\n");
                 }
             }           
         }
