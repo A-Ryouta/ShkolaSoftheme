@@ -21,69 +21,72 @@ namespace QuessMonster
     public partial class MainWindow : Window
     {
         int loseCount = 0;
-        Random rnd = new Random();
-        int guessNum;
-        int userNum;
+        int winNumber = 0;
         public MainWindow()
         {
             InitializeComponent();
-            guessNum = rnd.Next(1, 10);
+            winNumber = StartGame();
         }        
         private void goBtn_Click(object sender, RoutedEventArgs e)
-        {
+        {            
+            int userNumber;         
+            
             try
             {
-                userNum = int.Parse(numberText.Text);
-                if (userNum > 10 || userNum < 1)
+                userNumber = int.Parse(numberText.Text);
+                if (userNumber > 10 || userNumber < 1)
                 {
                     throw new ValueExeption();
                 }
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("You need to input a number!");
-                numberText.Clear();
-                return;
-            }
-            catch (ValueExeption)
-            {
-                MessageBox.Show("Number must be from 1 to 10");
-                numberText.Clear();
-                return;
-            }            
-            if (userNum != guessNum)
-            {                
-                loseCount++;
+                else if (userNumber != winNumber)
+                {
+                    loseCount++;
 
-                switch (loseCount)
+                    switch (loseCount)
+                    {
+                        case (1):
+                            textLabel.Content = "That`s wrong.\n You have 2 more tries";
+                            break;
+                        case (2):
+                            textLabel.Content = "That`s wrong.\n You have 1 more try";
+                            break;
+                        case (3):
+                            MessageBox.Show("You`ve lost");
+                            StartGame();
+                            textLabel.Content = "New game started";
+                            break;
+                    }
+                }
+                else
                 {                    
-                    case (1):
-                        textLabel.Content = "That`s wrong.\n You have 2 more tries";
-                        break;
-                    case (2):                        
-                        textLabel.Content = "That`s wrong.\n You have 1 more try";                        
-                        break;
-                    case (3):
-                        loseCount = 0;
-                        guessNum = rnd.Next(1, 10);
-                        numberText.Clear();
-                        MessageBox.Show("You`ve lost");
-                        textLabel.Content = "New game started";
-                        break;
-                }                
+                    MessageBox.Show("Great! You won!\n Lest try more!");
+                    textLabel.Content = "New game started";
+                }
             }
-            else
+            catch (FormatException ex)
             {
-                loseCount = 0;
-                guessNum = rnd.Next(1, 10);
-                numberText.Clear();
-                MessageBox.Show("Great! You won!\n Lest try more!");
-                textLabel.Content = "New game started";
-            }            
-        }        
+                MessageBox.Show(ex.Message);
+                numberText.Clear();                
+            }
+            catch (ValueExeption ex)
+            {
+                MessageBox.Show(ex.Message);
+                numberText.Clear();                
+            }
+        }
+        
+        int StartGame()
+        {
+            Random rnd = new Random();
+            var goalNumber = rnd.Next(1, 10);
+            loseCount = 0;
+            numberText.Clear();            
+            return goalNumber;
+        }                
     }
     public class ValueExeption : Exception
-    {
+    {     
+        public string Message { get; } = "Number must be from 1 to 10";
     }
 }
 

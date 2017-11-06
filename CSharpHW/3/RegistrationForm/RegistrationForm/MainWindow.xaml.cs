@@ -19,8 +19,7 @@ namespace RegistrationForm
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        StringBuilder msg = new StringBuilder("");
+    {        
         public MainWindow()
         {
             InitializeComponent();
@@ -28,106 +27,90 @@ namespace RegistrationForm
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            lettersCheck(firstName.Text, firstName.Uid, ref msg);
-            lengthCheck(firstName.Text, firstName.Uid, ref msg);
+            var error = string.Empty;
 
-            lettersCheck(lastName.Text, lastName.Uid, ref msg);
-            lengthCheck(lastName.Text, lastName.Uid, ref msg);
+            error = LetterCheck(firstName.Text, firstName.Uid) + LengthCheck(firstName.Text, firstName.Uid) // First Name
+                + LetterCheck(lastName.Text, lastName.Uid) + LengthCheck(lastName.Text, lastName.Uid)       // Last Name
+                + DateCheck(day.Text, month.Text, year.Text)                                                // Date
+                + LengthCheck(eMail.Text, eMail.Uid) + EMailCheck(eMail.Text, eMail.Uid)                    // EMail
+                + NumberCheck(phoneNum.Text, phoneNum.Uid) + ConstantLengthCheck(phoneNum.Text, phoneNum.Uid, 12)   // Phone
+                + LengthCheck(addInfo.Text, addInfo.Uid, 2000);                                             // Additional info
 
-            dateCheck(day.Text, month.Text, year.Text, ref msg);            
-
-            if (!eMail.Text.Contains("@"))
-            {
-                msg.Append("EMail should contain @\n");
-            }
-            lengthCheck(eMail.Text, eMail.Uid, ref msg);
-
-            numbersCheck(phoneNum.Text, phoneNum.Uid, ref msg);
-            staticLengthCheck(phoneNum.Text, phoneNum.Uid, ref msg, 12);
-
-            lengthCheck(addInfo.Text, addInfo.Uid, 2000, ref msg);
-
-            if (msg.Length == 0)
-            {
-                MessageBox.Show("Data successfully recorded");
-            }
-            else
-            {
-                MessageBox.Show(msg.ToString());
-            }
-            msg.Clear();
+            MessageBox.Show((error == string.Empty) ? "Data successfully recorded" : error);   
         }
-        static void lengthCheck(string text, string name, ref StringBuilder sb)
-        {            
-            if (text.Length > 255)
-            {
-                sb.Append(name + " is out of maximum length\n");
-            }
-        }
-        static void lengthCheck(string text, string name, int length, ref StringBuilder sb)
+        string LengthCheck(string text, string name, int length = 255)
         {
+            string message = string.Empty;
             if (text.Length > length)
             {
-                sb.Append(name + " is out of maximum length\n");
+                message = name + " is out of maximum length\n";
             }
+            return message;
         }
-        static void staticLengthCheck(string text, string name, ref StringBuilder sb, int staticLength = 255)
+        string ConstantLengthCheck(string text, string name, int constantLength = 255)
         {
-            if (text.Length != staticLength)
+            string message = string.Empty;
+            if (text.Length != constantLength)
             {
-                sb.Append(name + " should have " + staticLength + " symbols\n");
+                 message = name + " should have " + constantLength + " symbols\n";
             }
+            return message;
         }
-        static void lettersCheck(string text, string name, ref StringBuilder sb)
+        string LetterCheck(string text, string name)
         {
+            string message = string.Empty;
             if (!text.All(chr => char.IsLetter(chr)))
             {
-                sb.Append(name + " must contains only letters\n");
+                message = name + " must contains only letters\n";
             }
+            return message;
         }
-        static void numbersCheck(string text, string name, ref StringBuilder sb)
+        string NumberCheck(string text, string name)
         {
+            string message = string.Empty;
             if (!text.All(chr => char.IsDigit(chr)))
             {
-                sb.Append(name + " must contains only digits\n");
+                message = name + " must contains only digits\n";
             }
-        }
-        static bool tryNumbersCheck(string text, string name, ref StringBuilder sb)
+            return message;
+        }        
+        string EMailCheck(string text, string name)
         {
-            bool check = true;
-            if (!text.All(chr => char.IsDigit(chr)))
+            string message = string.Empty;
+            if (!eMail.Text.Contains("@"))
             {
-                check = false;
-                sb.Append(name + " must contains only digits\n");
+                message = "EMail should contain @\n";
             }
-            return check;
+            return message;
         }
-        static void dateCheck(string d, string m, string y, ref StringBuilder sb)
+        string DateCheck(string d, string m, string y)
         {
-            if (tryNumbersCheck(d, "day", ref sb))
+            string message = string.Empty;
+            if (NumberCheck(d, "day") == string.Empty)
             {
                 int day = int.Parse(d);
                 if (day < 1 || day > 31)
                 {
-                    sb.Append("Day should be from 1 to 31\n");
+                    message += "Day should be from 1 to 31\n";
                 }
             }
-            if(tryNumbersCheck(m, "month",ref sb))
+            if(NumberCheck(m, "month") == string.Empty)
             {
                 int month = int.Parse(m);
                 if (month < 1 || month > 12)
                 {
-                    sb.Append("Month should be from 1 to 12\n");
+                    message += "Month should be from 1 to 12\n";
                 }
             }
-            if (tryNumbersCheck(y, "year",ref sb))
+            if (NumberCheck(y, "year") == string.Empty)
             {
                 int year = int.Parse(y);
                 if (year < 1901 || year > DateTime.Now.Year)
                 {
-                    sb.Append("Year should be from 1901 to now\n");
+                    message += "Year should be from 1901 to now\n";
                 }
-            }           
+            }
+            return message;
         }
     }
 }

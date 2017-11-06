@@ -22,160 +22,66 @@ namespace Zodiac
     {
         public MainWindow()
         {
-            InitializeComponent();            
-            //signImg.Source = new BitmapImage(new Uri("Resources/Wheel.png", UriKind.Relative));
+            InitializeComponent();                        
         }        
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedDate = datePicker.SelectedDate;            
+        {            
+            var day = datePicker.SelectedDate.Value.Day;
+            var month = datePicker.SelectedDate.Value.Month;
 
-            switch(selectedDate.Value.Month)
+            if(month == 12 && day > 21 || month == 1 && day <= 20)
             {
-                case 1:
-                    if(selectedDate.Value.Day <= 20)
-                    {                        
-                        nameText.Text = "Your sign is Capricorn";
-                        signImg.Source = new BitmapImage(new Uri("Resources/сapricorn.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Aquarius";
-                        signImg.Source = new BitmapImage(new Uri("Resources/aquarius.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 2:
-                    if (selectedDate.Value.Day <= 18)
-                    {
-                        nameText.Text = "Your sign is Aquarius";
-                        signImg.Source = new BitmapImage(new Uri("Resources/aquarius.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Pisces";
-                        signImg.Source = new BitmapImage(new Uri("Resources/pisces.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 3:
-                    if (selectedDate.Value.Day <= 20)
-                    {
-                        nameText.Text = "Your sign is Pisces";
-                        signImg.Source = new BitmapImage(new Uri("Resources/pisces.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Aries";
-                        signImg.Source = new BitmapImage(new Uri("Resources/aries.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 4:
-                    if (selectedDate.Value.Day <= 19)
-                    {
-                        nameText.Text = "Your sign is Aries";
-                        signImg.Source = new BitmapImage(new Uri("Resources/aries.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Taurus";
-                        signImg.Source = new BitmapImage(new Uri("Resources/taurus.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 5:
-                    if (selectedDate.Value.Day <= 20)
-                    {
-                        nameText.Text = "Your sign is Taurus";
-                        signImg.Source = new BitmapImage(new Uri("Resources/taurus.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Gemini";
-                        signImg.Source = new BitmapImage(new Uri("Resources/gemini.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 6:
-                    if (selectedDate.Value.Day <= 20)
-                    {
-                        nameText.Text = "Your sign is Gemini";
-                        signImg.Source = new BitmapImage(new Uri("Resources/gemini.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Cancer";
-                        signImg.Source = new BitmapImage(new Uri("Resources/cancer.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 7:
-                    if (selectedDate.Value.Day <= 22)
-                    {
-                        nameText.Text = "Your sign is Cancer";
-                        signImg.Source = new BitmapImage(new Uri("Resources/cancer.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Leo";
-                        signImg.Source = new BitmapImage(new Uri("Resources/leo.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 8:
-                    if (selectedDate.Value.Day <= 22)
-                    {
-                        nameText.Text = "Your sign is Leo";
-                        signImg.Source = new BitmapImage(new Uri("Resources/leo.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Virgo";
-                        signImg.Source = new BitmapImage(new Uri("Resources/virgo.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 9:
-                    if (selectedDate.Value.Day <= 22)
-                    {
-                        nameText.Text = "Your sign is Virgo";
-                        signImg.Source = new BitmapImage(new Uri("Resources/virgo.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Libra";
-                        signImg.Source = new BitmapImage(new Uri("Resources/libra.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 10:
-                    if (selectedDate.Value.Day <= 22)
-                    {
-                        nameText.Text = "Your sign is Libra";
-                        signImg.Source = new BitmapImage(new Uri("Resources/libra.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Scorpio";
-                        signImg.Source = new BitmapImage(new Uri("Resources/scorpio.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 11:
-                    if (selectedDate.Value.Day <= 21)
-                    {
-                        nameText.Text = "Your sign is Scorpio";
-                        signImg.Source = new BitmapImage(new Uri("Resources/scorpio.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Sagittarius";
-                        signImg.Source = new BitmapImage(new Uri("Resources/sagittarius.jpg", UriKind.Relative));
-                    }
-                    break;
-                case 12:
-                    if (selectedDate.Value.Day <= 21)
-                    {
-                        nameText.Text = "Your sign is Sagittarius";
-                        signImg.Source = new BitmapImage(new Uri("Resources/sagittarius.jpg", UriKind.Relative));
-                    }
-                    else
-                    {
-                        nameText.Text = "Your sign is Capricorn";
-                        signImg.Source = new BitmapImage(new Uri("Resources/capricorn.jpg", UriKind.Relative));
-                    }
-                    break;
+                DisplaySign("Capricorn", "Resources/capricorn.jpg");
             }
+            else if(month == 1 && day > 20 || month == 2 && day <= 18)
+            {
+                DisplaySign("Aquarius", "aquarius.jpg");
+            }
+            else if (month == 2 && day > 18 || month == 3 && day <= 20)
+            {
+                DisplaySign("Pisces", "Resources/pisces.jpg");
+            }
+            else if (month == 3 && day > 20 || month == 4 && day <= 19)
+            {
+                DisplaySign("Aries", "Resources/aries.jpg");
+            }
+            else if (month == 4 && day > 19 || month == 5 && day <= 20)
+            {
+                DisplaySign("Taurus", "Resources/taurus.jpg");
+            }
+            else if (month == 5 && day > 20 || month == 6 && day <= 20)
+            {
+                DisplaySign("Gemini", "Resources/gemini.jpg");
+            }
+            else if (month == 6 && day > 20 || month == 7 && day <= 22)
+            {
+                DisplaySign("Cancer", "Resources/cancer.jpg");
+            }
+            else if (month == 7 && day > 22 || month == 8 && day <= 22)
+            {
+                DisplaySign("Leo", "Resources/leo.jpg");
+            }
+            else if (month == 8 && day > 22 || month == 9 && day <= 22)
+            {
+                DisplaySign("Virgo", "Resources/virgo.jpg");
+            }
+            else if (month == 9 && day > 22 || month == 10 && day <= 22)
+            {
+                DisplaySign("Libra", "Resources/libra.jpg");
+            }
+            else if (month == 10 && day > 22 || month == 11 && day <= 21)
+            {
+                DisplaySign("Scorpio", "Resources/scorpio.jpg");
+            }
+            else if (month == 11 && day > 21 || month == 12 && day <= 21)
+            {
+                DisplaySign("Sagittarius", "Resources/sagittarius.jpg");
+            }            
+        }
+        void DisplaySign(string sign, string filename)
+        {
+            nameText.Text = "Your sign is " + sign;
+            signImg.Source = new BitmapImage(new Uri(filename, UriKind.Relative));
         }
     }    
 }

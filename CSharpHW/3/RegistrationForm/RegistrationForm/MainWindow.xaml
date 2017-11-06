@@ -23,7 +23,7 @@
             <ComboBoxItem>male</ComboBoxItem>
             <ComboBoxItem>female</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="eMail" x:Uid="Email" HorizontalAlignment="Left" Height="30" Margin="200,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
+        <TextBox x:Name="eMail" x:Uid="EMail" HorizontalAlignment="Left" Height="30" Margin="200,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
         <TextBox x:Name="phoneNum" x:Uid="Phone number" HorizontalAlignment="Left" Height="30" Margin="200,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
         <TextBox x:Name="addInfo" x:Uid="Additional information" HorizontalAlignment="Left" Height="80" Margin="200,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
         <Button x:Name="confirmButton" Content="Confirm" HorizontalAlignment="Left" Height="30" Margin="45,315,0,0" VerticalAlignment="Top" Width="100" FontSize="18" Click="confirmButton_Click"/>
