@@ -24,7 +24,7 @@ namespace Shapes
 
     class ShapeDescriptor
     {
-        public string ShapeType { get; }
+        public string ShapeType { get; private set; }
         private Point point1, point2, point3, point4;
 
         public ShapeDescriptor()
