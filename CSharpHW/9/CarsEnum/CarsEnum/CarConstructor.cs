@@ -12,17 +12,17 @@ namespace CarsEnum
         {
             var current = new Car();
 
-            current.EngineName = e.ToString();
+            current.EngineName = e;
             current.EngineCapacity = (int)e;
-            current.Color = c.ToString();
-            current.TransmissionType = tr.ToString();
+            current.Color = c;
+            current.TransmissionType = tr;
 
             return current;
         }
 
         public Car ReConstruct(Car c, Engines newEngine)
         {
-            c.EngineName = newEngine.ToString();
+            c.EngineName = newEngine;
             c.EngineCapacity = (int)newEngine;
             return c;
         }
