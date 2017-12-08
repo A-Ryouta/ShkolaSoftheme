@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MobileOperator
 {
@@ -7,39 +9,40 @@ namespace MobileOperator
         static void Main()
         {
             MobileOperator life = new MobileOperator();
-
-            MobileAccount pedro = life.AddAccount(111);
-            MobileAccount marta = life.AddAccount(222);
-            MobileAccount orest = life.AddAccount(333);
-            MobileAccount jack = life.AddAccount(444);
-            MobileAccount victoria = life.AddAccount(555);
             
-            
-            victoria.AddContact(111, "Pedro");
-            victoria.AddContact(444, "Jack");
-            jack.AddContact(222, "Marta");
+            AdminAccount admin = life.AddAdmin("Admin", "Admin"
+                , new DateTime(1990, 10, 24), "LifeAdmin@fife.org");
 
-            pedro.SendMessage(555, "Hello Victoria!");
+            admin.SendMessage("Discount for everyone!");
 
-            marta.TryToCall(444);
-            marta.TryToCall(555);
-            marta.SendMessage(444, "Hi");
-
-            orest.SendMessage(222, "Meeting at 5 p.m.");
-
-            jack.TryToCall(777);
-            jack.TryToCall(222);
-            jack.SendMessage(222, "Answer pls");
-
-            victoria.TryToCall(222);
-            victoria.SendMessage(111, "Hi Pedro. How are you?");
-            victoria.TryToCall(444);
-            victoria.TryToCall(222);
-
-            life.MostPopularAccounts();
-            life.MostActiveAccounts();
+            MobileAccount john =
+                life.AddAccountWithPersonalInfo("John", "Gordon", new DateTime(1994, 06, 03), "Hohoho@gmail.com");
+            Validate(john);
+            MobileAccount sam =
+                life.AddAccountWithPersonalInfo("S@m", "4wing", new DateTime(2010, 06, 03), "noSpamPls");
+            Validate(sam);
+            MobileAccount eve =
+                life.AddAccountWithPersonalInfo("Eve", "Aberfort", new DateTime(1899, 06, 03), "myemail@ukr.net");
+            Validate(eve);
 
             Console.ReadLine();
-        }        
+        }
+
+        private static void Validate(MobileAccount account)
+        {
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(account);
+            if (!Validator.TryValidateObject(account, context, results, true))
+            {
+                foreach (var error in results)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+            else
+            {
+                Console.WriteLine("User {0} {1} is Valid", account.Name, account.Number);
+            }
+        }
     }
 }

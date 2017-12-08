@@ -1,6 +1,6 @@
 ﻿namespace MobileOperator
 {
-    internal class ActionEventArgs
+    public class ActionEventArgs
     {
         public string Message { get; }
         public int Receiver { get; }

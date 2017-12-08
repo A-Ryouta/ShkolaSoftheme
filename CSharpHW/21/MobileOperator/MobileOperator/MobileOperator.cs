@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MobileOperator
 {
-    internal class MobileOperator
+    public class MobileOperator
     {
         private readonly List<Action> _journal = new List<Action>();
         public Dictionary<int, MobileAccount> Accounts { get; }

@@ -5,8 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MobileOperator
 {
+    [Serializable]
     [AccountValidation]
-    internal class MobileAccount
+    public class MobileAccount
     {
         private static int _count;
 
@@ -35,8 +36,8 @@ namespace MobileOperator
 
         public MobileAccount()
         {
-            Number = _count;
             _count++;
+            Number = _count;
             Contacts = new Dictionary<int, string>();
         }
 
