@@ -1,5 +1,8 @@
-﻿namespace MobileOperator
+﻿using System;
+
+namespace MobileOperator
 {
+    [Serializable]
     class Action
     {
         public static int Id { get; private set; }

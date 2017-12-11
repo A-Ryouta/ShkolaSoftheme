@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace MobileOperator
 {
+    [Serializable]
     public class MobileOperator
     {
         private readonly List<Action> _journal = new List<Action>();

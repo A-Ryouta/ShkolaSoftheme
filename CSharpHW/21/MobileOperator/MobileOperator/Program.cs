@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
 using System.Runtime.Serialization.Json;
 using System.Xml.Serialization;
+using ProtoBuf;
 
 namespace MobileOperator
 {
@@ -23,25 +22,41 @@ namespace MobileOperator
             }
 
             MobileAccount[] accounts = life.Accounts.Values.ToArray();
-            //BinaryFormatter binaryFormatter = new BinaryFormatter();
 
-            //using (var fs = new FileStream("accounts.dat", FileMode.OpenOrCreate))
-            //{
-            //    binaryFormatter.Serialize(fs, life.Accounts);
-            //}
+            var binaryFormatter = new BinaryFormatter();
+            var start = DateTime.Now;
+            using (var fs = new FileStream("accounts.dat", FileMode.OpenOrCreate))
+            {
+                binaryFormatter.Serialize(fs, accounts);
+            }
+            var end = DateTime.Now;
+            Console.WriteLine("Binary: {0}", end - start);
 
-            var xmlFormatter = new XmlSerializer(typeof(MobileAccount));
+            var xmlFormatter = new XmlSerializer(typeof(MobileAccount[]));
+            start = DateTime.Now;
             using (var fs = new FileStream("accounts.xml", FileMode.OpenOrCreate))
             {
                 xmlFormatter.Serialize(fs, accounts);
             }
+            end = DateTime.Now;
+            Console.WriteLine("Xml: {0}", end - start);
 
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(MobileAccount));
+            var jsonFormatter = new DataContractJsonSerializer(typeof(MobileAccount[]));
+            start = DateTime.Now;
             using (var fs = new FileStream("accounts.json", FileMode.OpenOrCreate))
             {
                 jsonFormatter.WriteObject(fs, accounts);
             }
+            end = DateTime.Now;
+            Console.WriteLine("Json: {0}", end - start);
 
+            start = DateTime.Now;
+            using (var fs = new FileStream("accounts.bin", FileMode.OpenOrCreate))
+            {
+                Serializer.Serialize(fs, accounts);
+            }
+            end = DateTime.Now;
+            Console.WriteLine("Protobuff: {0}", end - start);
             Console.ReadLine();
         }
 

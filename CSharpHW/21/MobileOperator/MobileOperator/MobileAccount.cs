@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using ProtoBuf;
 
 namespace MobileOperator
 {
     [Serializable]
+    [DataContract(Namespace = "")]
+    [ProtoContract]
     [AccountValidation]
     public class MobileAccount
     {
@@ -15,7 +18,7 @@ namespace MobileOperator
         public event EventHandler<ActionEventArgs> Call;
                 
         public int Number { get; }
-        public Dictionary<int, string> Contacts { get; }
+        public XmlSerializableDictionary<int, string> Contacts { get; }
 
         [Required(ErrorMessage = "Acoount owner name was not specified")]
         [StringLength(20, MinimumLength = 3)]
@@ -38,14 +41,14 @@ namespace MobileOperator
         {
             _count++;
             Number = _count;
-            Contacts = new Dictionary<int, string>();
+            Contacts = new XmlSerializableDictionary<int, string>();
         }
 
         public MobileAccount(string name, string surname, DateTime birthDate, string email)
         {
             Number = _count;
             _count++;
-            Contacts = new Dictionary<int, string>();
+            Contacts = new XmlSerializableDictionary<int, string>();
 
             Name = name;
             Surname = surname;
