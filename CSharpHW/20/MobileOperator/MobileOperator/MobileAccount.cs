@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace MobileOperator
 {
-    [AccountValidation]
-    internal class MobileAccount
+    internal class MobileAccount : IValidatableObject
     {
         private static int _count;
 
@@ -15,31 +15,12 @@ namespace MobileOperator
                 
         public int Number { get; }
         public Dictionary<int, string> Contacts { get; }
-
-        [Required(ErrorMessage = "Acoount owner name was not specified")]
-        [StringLength(20, MinimumLength = 3)]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Name may contains only letters")]
+        
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Acoount owner surname was not specified")]
-        [StringLength(20, MinimumLength = 3)]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Surname may contains only letters")]
         public string Surname { get; set; }
-
-        [Required(ErrorMessage = "Acoount owner birth date was not specified")]
-        [DataType(dataType: DataType.Date)]
         public DateTime BirthDate { get; set; }
-
-        [EmailAddress(ErrorMessage = "Incorrect email adress")]
         public string Email { get; set; }
-
-        public MobileAccount()
-        {
-            Number = _count;
-            _count++;
-            Contacts = new Dictionary<int, string>();
-        }
-
+        
         public MobileAccount(string name, string surname, DateTime birthDate, string email)
         {
             Number = _count;
@@ -95,6 +76,53 @@ namespace MobileOperator
                 Console.WriteLine("Incoming call from {0}", senderNumber);
             }
 
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                errors.Add(new ValidationResult("Account owner name was not specified"));
+            }
+            else if (Name.Length < 3 || Name.Length > 20)
+            {
+                errors.Add(new ValidationResult("Name must be from 3 to 20 characters"));
+            }
+            if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+            {
+                errors.Add(new ValidationResult("Name may contains only letters"));
+            }
+
+            if (string.IsNullOrEmpty(Surname))
+            {
+                errors.Add(new ValidationResult("Account owner surname was not specified"));
+            }
+            else if (Name.Length < 3 || Name.Length > 20)
+            {
+                errors.Add(new ValidationResult("Surname must be from 3 to 20 characters"));
+            }
+            if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+            {
+                errors.Add(new ValidationResult("Surname may contains only letters"));
+            }
+
+            if (BirthDate == default(DateTime))
+            {
+                errors.Add(new ValidationResult("Acoount owner birth date was not specified"));
+            }
+            else if (BirthDate >= new DateTime(2005, 01, 01) || BirthDate <= new DateTime(1900, 01, 01))
+            {
+                errors.Add(new ValidationResult("You`re too young or probably dead"));
+            }
+
+            if (!Email.Contains('@'))
+            {
+                errors.Add(new ValidationResult("Incorrect email address"));
+            }
+
+            return errors;
         }
     }
 }

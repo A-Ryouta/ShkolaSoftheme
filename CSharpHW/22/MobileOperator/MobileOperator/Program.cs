@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Json;
-using System.Xml.Serialization;
-using ProtoBuf;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MobileOperator
 {
@@ -15,16 +12,19 @@ namespace MobileOperator
         static void Main()
         {
             MobileOperator life = new MobileOperator();
-            
-            MobileAccount[] deserializeAccounts = new MobileAccount[] { };
-            var jsonFormatter = new DataContractJsonSerializer(deserializeAccounts.GetType());
 
-            using (var fs = new FileStream(@"D:\accounts.json", FileMode.Open))
+            using (StreamReader file = File.OpenText(@"d:\accounts.json"))
+            using (JsonTextReader reader = new JsonTextReader(file))
             {
-                deserializeAccounts = jsonFormatter.ReadObject(fs) as MobileAccount[];
+                JArray o = (JArray)JToken.ReadFrom(reader);
+                List<MobileAccount> accounts  = o.ToObject<List<MobileAccount>>();
+                life.LoadAccounts(accounts);
             }
 
-            life.LoadAccounts(deserializeAccounts);
+            foreach (var account in life.Accounts)
+            {
+                Console.WriteLine("{0} {1}", account.Number, account.Name);
+            }
          
         }
 

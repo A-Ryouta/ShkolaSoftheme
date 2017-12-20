@@ -4,8 +4,8 @@ using System.Xml.Serialization;
 
 namespace MobileOperator
 {
-    [Serializable]
     [XmlRoot("Dictionary")]
+    [Serializable]
     public class XmlSerializableDictionary<TKey, TValue>
         : Dictionary<TKey, TValue>, IXmlSerializable
     {

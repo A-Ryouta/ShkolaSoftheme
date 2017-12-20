@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Json;
-using System.Xml.Serialization;
-using ProtoBuf;
 
 namespace MobileOperator
 {
@@ -15,17 +9,38 @@ namespace MobileOperator
         static void Main()
         {
             MobileOperator life = new MobileOperator();
-            
-            MobileAccount[] deserializeAccounts = new MobileAccount[] { };
-            var jsonFormatter = new DataContractJsonSerializer(deserializeAccounts.GetType());
 
-            using (var fs = new FileStream(@"D:\accounts.json", FileMode.Open))
-            {
-                deserializeAccounts = jsonFormatter.ReadObject(fs) as MobileAccount[];
-            }
+            MobileAccount pedro = life.AddAccount();
+            MobileAccount marta = life.AddAccount();
+            MobileAccount orest = life.AddAccount();
+            MobileAccount jack = life.AddAccount();
+            MobileAccount victoria = life.AddAccount();
 
-            life.LoadAccounts(deserializeAccounts);
-         
+
+            victoria.AddContact(1, "Pedro");
+            victoria.AddContact(4, "Jack");
+            jack.AddContact(2, "Marta");
+
+            pedro.SendMessage(5, "Hello Victoria!");
+
+            marta.TryToCall(4);
+            marta.TryToCall(5);
+            marta.SendMessage(4, "Hi");
+
+            orest.SendMessage(2, "Meeting at 5 p.m.");
+
+            jack.TryToCall(7);
+            jack.TryToCall(2);
+            jack.SendMessage(2, "Answer pls");
+
+            victoria.TryToCall(2);
+            victoria.SendMessage(1, "Hi Pedro. How are you?");
+            victoria.TryToCall(4);
+            victoria.TryToCall(2);
+
+            life.TakeCallsByNumber(2);
+
+            Console.ReadLine();
         }
 
         private static void Validate(MobileAccount account)

@@ -11,11 +11,15 @@ namespace StringChanger
         {
             string path = Console.ReadLine();
 
-            Changer(path, "Hi!", "Bye!", "*.txt");
+            Changer(path);
         }
 
-        static void Changer(string path, string oldString, string newString, string fileType)
+        static void Changer(string path)
         {
+            string oldString = "Hi!";
+            string newString = "Bye!";
+            string fileType = "*.txt";
+
             if (Directory.Exists(path))
             {
                 var subDirectories = Directory.GetDirectories(path);
@@ -24,7 +28,7 @@ namespace StringChanger
                 {
                     foreach (var subDirectory in subDirectories)
                     {
-                        Changer(subDirectory, oldString, newString, fileType);
+                        Changer(subDirectory);
                     }
                 }
 

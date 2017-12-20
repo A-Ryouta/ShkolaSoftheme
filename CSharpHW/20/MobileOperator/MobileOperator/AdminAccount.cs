@@ -5,7 +5,7 @@ namespace MobileOperator
     class AdminAccount : MobileAccount
     {
         public event EventHandler<ActionEventArgs> MessageToAll;
-        public int Number { get; }
+        public new int Number { get; }
 
         public AdminAccount(string name, string surname, DateTime birthDate, string email)
             : base(name, surname, birthDate, email)
@@ -15,7 +15,7 @@ namespace MobileOperator
 
         public void SendMessage(string message)
         {
-            MessageToAll?.Invoke(this, new ActionEventArgs(message));
+            MessageToAll?.Invoke(this, new ActionEventArgs(0, message));
         }
     }
 }
