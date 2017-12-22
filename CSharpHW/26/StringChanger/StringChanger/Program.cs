@@ -7,56 +7,61 @@ namespace StringChanger
 {
     class Program
     {
+        static string oldString;
+        static string newString;
+        static string fileType;        
+
         static void Main()
         {
-            string path = Console.ReadLine();
+            var path = Console.ReadLine();
+            oldString = "Bye!";
+            newString = "Hi!";
+            fileType = ".txt";
 
-            Changer(path);
+            Changer(path, oldString, newString, fileType);
         }
 
-        static void Changer(string path)
+        static void Changer(string path, string oldString, string newString, string fileType)
         {
-            string oldString = "Hi!";
-            string newString = "Bye!";
-            string fileType = "*.txt";
-
             if (Directory.Exists(path))
             {
-                var subDirectories = Directory.GetDirectories(path);
+                DirectoryInfo directory = new DirectoryInfo(path);
+                var files = directory.GetFiles("*", SearchOption.AllDirectories)
+                    .Where(x => x.Extension == fileType);
 
-                if (subDirectories.Length > 0)
-                {
-                    foreach (var subDirectory in subDirectories)
-                    {
-                        Changer(subDirectory);
-                    }
-                }
-
-                var files = Directory.GetFiles(path, fileType);
-
-                foreach (var file in files)
-                {
-                    string text = File.ReadAllText(file);
-                    
-                    if (text.Contains(oldString))
-                    {
-                        text = text.Replace(oldString, newString);
-                        File.WriteAllText(file, text);
-
-                        using (StreamWriter sw = File.AppendText("log.txt"))
-                        {
-                            sw.WriteLine("Replace in file: {0}", Path.GetFileName(file));
-                            sw.WriteLine(text);
-                            sw.WriteLine();
-                        }
-                    }
-
-                    
-                }
+                Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount * 2 },
+                    file => Change(file));                
             }
             else
             {
                 Console.WriteLine("Directory doesn`t exist.");
+            }
+        }
+
+        static void Change(FileInfo file)
+        {            
+            var lines = File.ReadAllLines(file.FullName);
+            var logBuffer = string.Empty;
+
+            for (var i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains(oldString))
+                {
+                    lines[i] = lines[i].Replace(oldString, newString);
+                    logBuffer += "Line #" + (i + 1) + ": " + lines[i] + Environment.NewLine;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(logBuffer))
+            {
+                File.WriteAllLines(file.FullName, lines);
+
+                using (StreamWriter sw = File.AppendText("log.txt"))
+                {
+                    sw.WriteLine("Replace {0} for {1} in file: {2}", oldString, newString, file.Name);
+                    sw.WriteLine(logBuffer);
+                    sw.Close();
+                }
             }
         }
     }
