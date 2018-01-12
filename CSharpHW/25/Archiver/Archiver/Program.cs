@@ -13,10 +13,10 @@ namespace Archiver
         {
             path = Console.ReadLine();
             
-            Archive(path);
+            Processing(path);
         }
 
-        static void Archive(string path)
+        static void Processing(string path)
         {
             if (Directory.Exists(path))
             {
@@ -40,9 +40,15 @@ namespace Archiver
         static void Archivator(object o)
         {
             var file = o as FileInfo;
-            var pathBuffer = file.FullName;
-            var resultPath = pathBuffer.Replace(file.Extension, ".zip");
-            ZipFile.CreateFromDirectory(path, resultPath);            
+            var resultPath = file.FullName.Replace(file.Extension, ".zip");            
+
+            using (FileStream fs = new FileStream(resultPath, FileMode.Create))
+            {
+                using (ZipArchive archive = new ZipArchive(fs, ZipArchiveMode.Update))
+                {
+                    archive.CreateEntry(file.Name);                    
+                }
+            }                
         }
     }
 }

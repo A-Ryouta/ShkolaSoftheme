@@ -9,14 +9,15 @@ namespace StringChanger
     {
         static string oldString;
         static string newString;
-        static string fileType;        
 
         static void Main()
         {
+
             var path = Console.ReadLine();
-            oldString = "Bye!";
-            newString = "Hi!";
-            fileType = ".txt";
+
+            var fileType = ".txt";
+            oldString = "Hi!";
+            newString = "Bye!";
 
             Changer(path, oldString, newString, fileType);
         }
@@ -30,7 +31,7 @@ namespace StringChanger
                     .Where(x => x.Extension == fileType);
 
                 Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount * 2 },
-                    file => Change(file));                
+                    file => Change(file));
             }
             else
             {
@@ -39,7 +40,7 @@ namespace StringChanger
         }
 
         static void Change(FileInfo file)
-        {            
+        {
             var lines = File.ReadAllLines(file.FullName);
             var logBuffer = string.Empty;
 
@@ -55,13 +56,13 @@ namespace StringChanger
             if (!string.IsNullOrEmpty(logBuffer))
             {
                 File.WriteAllLines(file.FullName, lines);
-
+               
                 using (StreamWriter sw = File.AppendText("log.txt"))
                 {
                     sw.WriteLine("Replace {0} for {1} in file: {2}", oldString, newString, file.Name);
-                    sw.WriteLine(logBuffer);
-                    sw.Close();
+                    sw.WriteLine(logBuffer);                    
                 }
+
             }
         }
     }
