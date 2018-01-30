@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sort
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        internal static void Main()
         {
-            int[] array = ArrayGenerator(10);
+            var array = ArrayGenerator(10);
             ShowArray(array);
             Console.WriteLine();
             QuickSort(array);
@@ -18,58 +14,66 @@ namespace Sort
             Console.ReadLine();
         }
 
-        static int[] ArrayGenerator(int n)
+        internal static int[] ArrayGenerator(int n)
         {
-            int[] array = new int[n];
-            Random rand = new Random();
-            for(int i = 0; i < array.Length; i++)
+            var array = new int[n];
+            var rand = new Random();
+
+            for(var i = 0; i < array.Length; i++)
             {
                 array[i] = rand.Next(-100, 100);
             }
+
             return array;
         }
-        static void ShowArray(int[] array)
+
+        internal static void ShowArray(int[] array)
         {
-            foreach (int element in array)
+            foreach (var element in array)
             {
                 Console.Write("{0} ", element);
             }
         }
-        static void QuickSort(int[] arr)
+
+        internal static void QuickSort(int[] arr)
         {
             QuickSort(arr, 0, arr.Length - 1);
         }
-        static void QuickSort(int[] arr, int start, int end)
+
+        internal static void QuickSort(int[] array, int start, int end)
         {
-            if (start >= end)
+            while (true)
             {
-                return;
-            }
-
-            int num = arr[start];
-
-            int i = start, j = end;
-
-            while (i < j)
-            {
-                while (i < j && arr[j] > num)
+                if (start >= end)
                 {
-                    j--;
+                    return;
                 }
 
-                arr[i] = arr[j];
+                var num = array[start];
 
-                while (i < j && arr[i] < num)
+                int i = start, j = end;
+
+                while (i < j)
                 {
-                    i++;
+                    while (i < j && array[j] > num)
+                    {
+                        j--;
+                    }
+
+                    array[i] = array[j];
+
+                    while (i < j && array[i] < num)
+                    {
+                        i++;
+                    }
+
+                    array[j] = array[i];
                 }
 
-                arr[j] = arr[i];
+                array[i] = num;
+                QuickSort(array, start, i - 1);
+                start = i + 1;
             }
-
-            arr[i] = num;
-            QuickSort(arr, start, i - 1);
-            QuickSort(arr, i + 1, end);
         }
     }
 }

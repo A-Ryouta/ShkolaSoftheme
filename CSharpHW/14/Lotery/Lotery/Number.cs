@@ -2,14 +2,14 @@
 
 namespace Lotery
 {
-    class Number
+    internal class Number
     {
-        private Random rnd = new Random();
+        private static readonly Random Rnd = new Random();
         public readonly int number;
 
         public Number()
         {
-            number = rnd.Next(1, 9);
+            number = Rnd.Next(1, 9);
         }
     }
 }

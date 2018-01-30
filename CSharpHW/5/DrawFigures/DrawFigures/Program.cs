@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DrawFigures
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             bool exit = false;
             do
             {
-                Console.WriteLine("Select 2DShape Triangle - g, Square - s, Romb - r.\nTo exit press q");
+                Console.WriteLine("Select 2DShape Triangle - t, Square - s, Romb - r.\nTo exit press q");
                 string shape = Console.ReadLine();
 
                 if(shape == "q")
@@ -28,7 +25,7 @@ namespace DrawFigures
                 
                 switch (shape)
                 {
-                    case "g":
+                    case "t":
                         for(int i = 0; i < size; i++)
                         {
                             block.Append("*");

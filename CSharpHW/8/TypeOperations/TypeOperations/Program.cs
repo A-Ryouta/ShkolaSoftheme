@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeOperations
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var something = 5;
             var copy = something;
@@ -17,12 +13,7 @@ namespace TypeOperations
             copy += 5;
             PrintSomething(something, copy);
 
-            var jerry = new User
-            {
-                FirstName = "Jerry",
-                LastName = "Torvald",
-                Age = 21
-            };
+            var jerry = new User("Jerry", "Torvald", 21);
             var tom = jerry;
 
             jerry.Print();
@@ -48,9 +39,9 @@ namespace TypeOperations
             jerry.Print();
             anna.Print();
             Console.ReadLine();
-        }        
+        }
 
-        static void PrintSomething(params int[] args)
+        private static void PrintSomething(params int[] args)
         {
             for(int i = 0; i < args.Length; i++)
             {
@@ -58,21 +49,5 @@ namespace TypeOperations
             }
             Console.WriteLine();
         }
-    }
-    class User
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int Age { get; set; }
-        public void Clone(User value)
-        {
-            this.FirstName = value.FirstName;
-            this.LastName = value.LastName;
-            this.Age = value.Age;
-        }
-        public void Print()
-        {
-            Console.WriteLine("{0} {1} is {2} years old", FirstName, LastName, Age);
-        }              
     }
 }

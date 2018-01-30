@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserAuthentication
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            List<User> users = new List<User>();
-
-            users.Add(new User("Pavlo", "12345", new DateTime(2017, 10, 12, 14, 58, 02)));
-            users.Add(new User("Nuclear", "agrom_21", new DateTime(2017, 11, 17, 16, 02, 11)));
-            users.Add(new User("Skadabr@gmail.com", "secretFrom_all01", new DateTime(2017, 06, 06, 22, 11, 00)));
-            users.Add(new User("Andrew007@hotmail.com", "just_in_time", new DateTime(2017, 11, 10, 09, 34, 34)));
-
-            var login = string.Empty;
-            var password = string.Empty;
+            var users = new List<User>
+            {
+                new User("Pavlo", "12345", new DateTime(2017, 10, 12, 14, 58, 02)),
+                new User("Nuclear", "agrom_21", new DateTime(2017, 11, 17, 16, 02, 11)),
+                new User("Skadabr@gmail.com", "secretFrom_all01", new DateTime(2017, 06, 06, 22, 11, 00)),
+                new User("Andrew007@hotmail.com", "just_in_time", new DateTime(2017, 11, 10, 09, 34, 34))
+            };
+            
+            string login;
+            string password;
 
             do
             {
@@ -27,47 +25,57 @@ namespace UserAuthentication
                 Console.WriteLine("Enter password:");
                 password = Console.ReadLine();
 
-                if (login.Contains("@"))
+                if (login == null)
                 {
-                    Authenticate(login, password, users, "email");
+                    Console.WriteLine("Enter your login");
+                    continue;
                 }
-                else
-                {
-                    Authenticate(login, password, users, "username");                    
-                }
+
+                Authenticate(login, password, users);
+
             } while (login != "exit" && password != "exit");
         }
-        static void Authenticate(string login, string password, List<User> users, string type)
+
+        private static void Authenticate(string login, string password, ICollection<User> users)
         {
-            dynamic auth;
-            if (type == "username")
+            IAuthenticator auth;
+
+            if (login.Contains("@"))
             {
-                auth = new UsernameAuthentication();
-                auth.NameCheck = login;
+                auth = new EmailAuthentication
+                {
+                    LoginCheck = login,
+                    PasswordCheck = password
+                };
             }
             else
             {
-                auth = new EmailAuthentication();
-                auth.EmailCheck = login;
+                auth = new UsernameAuthentication
+                {
+                    LoginCheck = login,
+                    PasswordCheck = password
+                };
             }
-
-            auth.PasswordCheck = password;
+            
             var found = false;
 
-            foreach (User user in users)
+            foreach (var user in users)
             {
                 found = auth.AuthenticateUser(user);
+
                 if (found)
                 {
                     user.LastAuthentication = DateTime.Now;
                     break;
                 }
             }
+
             if (!found)
             {
                 Console.WriteLine("Login failed. We added new user with current data.");
                 users.Add(new User(login, password, DateTime.Now));
             }
+
             Console.WriteLine();
         }
     }

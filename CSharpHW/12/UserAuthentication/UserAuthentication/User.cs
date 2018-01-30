@@ -1,28 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserAuthentication
 {
-    class User : IUser
+    internal class User : IUser
     {
-        public string Name { get; private set; }
-        public string Email { get; private set; }
-        public string Password { get; private set; }
+        public string Name { get; }
+        public string Email { get; }
+        public string Password { get; }
         public DateTime LastAuthentication { get; set; }
+
         public User(string login, string pass, DateTime dt)
         {
-            Name = (login.Contains("@")) ? string.Empty : login;
-            Email = (login.Contains("@")) ? login : string.Empty;                           
+            if (login.Contains("@"))
+            {
+                Email = login;
+            }
+            else
+            {
+                Name = login;
+            }
             Password = pass;
             LastAuthentication = dt;
-        }        
+        }
+        
         public string GetFullInfo()
         {
-            return (Email == String.Empty) ? string.Format("{0} we saw you last time at {1}", Name, LastAuthentication) :
-                string.Format("{0} we saw you last time at {1}", Email, LastAuthentication);            
+            return (Email == string.Empty) ? $"{Name} we saw you last time at {LastAuthentication}"
+                : $"{Email} we saw you last time at {LastAuthentication}";            
         }   
     }
 }

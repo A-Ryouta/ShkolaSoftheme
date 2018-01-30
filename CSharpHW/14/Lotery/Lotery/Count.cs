@@ -1,6 +1,6 @@
 ﻿namespace Lotery
 {
-    enum Count
+    internal enum Count
     {
         First,
         Second,

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarsEnum
+﻿namespace CarsEnum
 {
-    enum Engines
+    internal enum Engines
     {
         ToyotaFE = 400,
         Mazda2TE = 650,

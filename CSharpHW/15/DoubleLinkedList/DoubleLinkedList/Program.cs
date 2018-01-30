@@ -2,14 +2,14 @@
 
 namespace DoubleLinkedList
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
-            DoubleLinkedList<int> list = new DoubleLinkedList<int>();
-            var testedLength = 4;
+            var list = new DoubleLinkedList<int>();
+            const int testedLength = 4;
 
-            for (int i = 0; i < testedLength; i++)
+            for (var i = 0; i < testedLength; i++)
             {
                 list.AddFirst(i);
             }
@@ -22,15 +22,18 @@ namespace DoubleLinkedList
             Console.ReadLine();
         }
 
-        static void DoWork<T>(DoubleLinkedList<T> list, T item)
+        private static void DoWork<T>(DoubleLinkedList<T> list, T item)
         {
             Console.WriteLine("Double linked list contains {0} : {1}",item, list.Contains(item));
             Console.WriteLine("Double linked list has {0} elements", list.Count);
-            T[] array = list.ToArray();
+
+            var array = list.ToArray();
+
             foreach (var value in array)
             {
                 Console.Write("{0} ", value);
             }
+
             Console.WriteLine();
         }
     }

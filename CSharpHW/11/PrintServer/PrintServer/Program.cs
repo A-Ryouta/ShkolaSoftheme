@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrintServer
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        internal static void Main()
         {
-            Printer print = new Printer();
-            ColourPrinter cPrint = new ColourPrinter();
-            PhotoPrinter phPrint = new PhotoPrinter();
-            Photo photo = new Photo();
+            var print = new Printer();
+            var cPrint = new ColourPrinter();
+            var phPrint = new PhotoPrinter();
+            var photo = new Photo();
 
             print.Print("Standart");
 

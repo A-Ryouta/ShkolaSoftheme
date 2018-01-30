@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DoubleOperations
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -27,46 +15,39 @@ namespace DoubleOperations
 
         private void plus_Click(object sender, RoutedEventArgs e)
         {
-            double left = double.Parse(firstOperand.Text);
-            double right = double.Parse(secondOperand.Text);
-            double result = left + right;
+            var result = double.TryParse(FirstOperand.Text, out var left)
+                         && double.TryParse(SecondOperand.Text, out var right) 
+                         ? (left + right).ToString(CultureInfo.CurrentCulture) : "Wrong\n input\n data";
 
-            resultText.Text = result.ToString();
+            ResultText.Text = result;
         }
 
         private void minus_Click(object sender, RoutedEventArgs e)
         {
-            double left = double.Parse(firstOperand.Text);
-            double right = double.Parse(secondOperand.Text);
-            double result = left - right;
+            var result = double.TryParse(FirstOperand.Text, out var left)
+                         && double.TryParse(SecondOperand.Text, out var right)
+                ? (left - right).ToString(CultureInfo.CurrentCulture) : "Wrong\n input\n data";
 
-            resultText.Text = result.ToString();
+            ResultText.Text = result;
         }
 
         private void multiple_Click(object sender, RoutedEventArgs e)
         {
-            double left = double.Parse(firstOperand.Text);
-            double right = double.Parse(secondOperand.Text);
-            double result = left * right;
+            var result = double.TryParse(FirstOperand.Text, out var left)
+                         && double.TryParse(SecondOperand.Text, out var right)
+                ? (left * right).ToString(CultureInfo.CurrentCulture) : "Wrong\n input\n data";
 
-            resultText.Text = result.ToString();
+            ResultText.Text = result;
         }
 
         private void divide_Click(object sender, RoutedEventArgs e)
         {
-            double left = double.Parse(firstOperand.Text);
-            double right = double.Parse(secondOperand.Text);
+            var result = double.TryParse(FirstOperand.Text, out var left)
+                         && double.TryParse(SecondOperand.Text, out var right)
+                         && right != 0.0
+                ? (left / right).ToString(CultureInfo.CurrentCulture) : "Wrong\n input\n data";
 
-            if (right != 0)
-            {
-                double result = left / right;
-
-                resultText.Text = result.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Error! Zero division!");
-            }
+            ResultText.Text = result;
         }
     }
 }

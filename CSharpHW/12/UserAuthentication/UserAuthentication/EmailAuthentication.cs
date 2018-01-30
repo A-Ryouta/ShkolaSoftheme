@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserAuthentication
 {
-    class EmailAuthentication : IAuthenticator
+    internal class EmailAuthentication : IAuthenticator
     {
-        public string EmailCheck { get; set; }
+        public string LoginCheck { get; set; }
         public string PasswordCheck { get; set; }
+
         public bool AuthenticateUser(IUser user)
         {
-            var found = false;
-            if(user.Email == EmailCheck && user.Password == PasswordCheck)
+            if (user.Email != LoginCheck) return false;
+
+            if (user.Password == PasswordCheck)
             {
-                found = true;
                 Console.WriteLine(user.GetFullInfo());
+                return true;
             }
-            else if (user.Email == EmailCheck)
-            {
-                found = true;
-                Console.WriteLine("Incorrect password");
-            }
-            return found;
+
+            Console.WriteLine("Incorrect password");
+
+            return true;
         }
     }
 }

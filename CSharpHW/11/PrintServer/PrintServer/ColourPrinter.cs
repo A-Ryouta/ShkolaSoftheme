@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrintServer
 {
@@ -21,7 +17,7 @@ namespace PrintServer
             Console.ForegroundColor = cc;
             Console.WriteLine(s);
 
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Black;
         }
     }
 }

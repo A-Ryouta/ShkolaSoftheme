@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarsEnum
+﻿namespace CarsEnum
 {
-    class CarConstructor
+    internal class CarConstructor
     {
         public Car CarConstruct(Engines e, Colors c, Transmissions tr)
         {
-            var current = new Car();
-
-            current.EngineName = e;
-            current.EngineCapacity = (int)e;
-            current.Color = c;
-            current.TransmissionType = tr;
+            var current = new Car
+            {
+                EngineName = e,
+                EngineCapacity = (int) e,
+                Color = c,
+                TransmissionType = tr
+            };
 
             return current;
         }

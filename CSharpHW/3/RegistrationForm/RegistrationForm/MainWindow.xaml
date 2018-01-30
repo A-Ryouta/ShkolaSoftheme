@@ -3,29 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RegistrationForm"
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="450">
     <Grid>
-        <Label x:Name="firstNameLabel" Content="First name" HorizontalAlignment="Left" Height="40" Margin="30,30,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label x:Name="lastNameLabel" Content="Larst name" HorizontalAlignment="Left" Height="40" Margin="30,70,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label x:Name="birthDateLabel" Content="Birth date" HorizontalAlignment="Left" Height="40" Margin="30,110,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label x:Name="genderLabel" Content="Gender" HorizontalAlignment="Left" Height="40" Margin="30,150,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label x:Name="emailLabel" Content="Email" HorizontalAlignment="Left" Height="40" Margin="30,190,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
-        <Label x:Name="phoneNumberLabel" Content="Phone number" HorizontalAlignment="Left" Height="40" Margin="30,230,0,0" VerticalAlignment="Top" Width="130" FontSize="18"/>
-        <Label x:Name="addnfoLabel" Content="Additional info" HorizontalAlignment="Left" Height="40" Margin="30,270,0,0" VerticalAlignment="Top" Width="130" FontSize="18"/>
-        <TextBox x:Name="firstName" x:Uid="First Name" HorizontalAlignment="Left" Height="30" Margin="200,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
-        <TextBox x:Name="lastName" x:Uid="Last Name" HorizontalAlignment="Left" Height="30" Margin="200,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
-        <TextBox x:Name="day" x:Uid="Day" HorizontalAlignment="Left" Height="30" Margin="200,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="40" FontSize="18"/>
-        <TextBox x:Name="month" x:Uid="Month" HorizontalAlignment="Left" Height="30" Margin="260,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="40" FontSize="18"/>
-        <TextBox x:Name="year" x:Uid="Year" HorizontalAlignment="Left" Height="30" Margin="320,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" FontSize="18"/>
-        <ComboBox x:Name="genderComboBox" HorizontalAlignment="Left" Height="30" Margin="200,150,0,0" VerticalAlignment="Top" Width="100">
+        <Label x:Name="FirstNameLabel" Content="First name" HorizontalAlignment="Left" Height="40" Margin="30,30,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
+        <Label x:Name="LastNameLabel" Content="Larst name" HorizontalAlignment="Left" Height="40" Margin="30,70,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
+        <Label x:Name="BirthDateLabel" Content="Birth date" HorizontalAlignment="Left" Height="40" Margin="30,110,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
+        <Label x:Name="GenderLabel" Content="Gender" HorizontalAlignment="Left" Height="40" Margin="30,150,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
+        <Label x:Name="EmailLabel" Content="Email" HorizontalAlignment="Left" Height="40" Margin="30,190,0,0" VerticalAlignment="Top" Width="100" FontSize="18"/>
+        <Label x:Name="PhoneNumberLabel" Content="Phone number" HorizontalAlignment="Left" Height="40" Margin="30,230,0,0" VerticalAlignment="Top" Width="130" FontSize="18"/>
+        <Label x:Name="AddnfoLabel" Content="Additional info" HorizontalAlignment="Left" Height="40" Margin="30,270,0,0" VerticalAlignment="Top" Width="130" FontSize="18"/>
+        <TextBox x:Name="FirstName" x:Uid="First Name" HorizontalAlignment="Left" Height="30" Margin="200,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
+        <TextBox x:Name="LastName" x:Uid="Last Name" HorizontalAlignment="Left" Height="30" Margin="200,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
+        <TextBox x:Name="Day" x:Uid="Day" HorizontalAlignment="Left" Height="30" Margin="200,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="40" FontSize="18"/>
+        <TextBox x:Name="Month" x:Uid="Month" HorizontalAlignment="Left" Height="30" Margin="260,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="40" FontSize="18"/>
+        <TextBox x:Name="Year" x:Uid="Year" HorizontalAlignment="Left" Height="30" Margin="320,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" FontSize="18"/>
+        <ComboBox x:Name="GenderComboBox" HorizontalAlignment="Left" Height="30" Margin="200,150,0,0" VerticalAlignment="Top" Width="100">
             <ComboBoxItem>male</ComboBoxItem>
             <ComboBoxItem>female</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="eMail" x:Uid="EMail" HorizontalAlignment="Left" Height="30" Margin="200,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
-        <TextBox x:Name="phoneNum" x:Uid="Phone number" HorizontalAlignment="Left" Height="30" Margin="200,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
-        <TextBox x:Name="addInfo" x:Uid="Additional information" HorizontalAlignment="Left" Height="80" Margin="200,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
-        <Button x:Name="confirmButton" Content="Confirm" HorizontalAlignment="Left" Height="30" Margin="45,315,0,0" VerticalAlignment="Top" Width="100" FontSize="18" Click="confirmButton_Click"/>
+        <TextBox x:Name="EMail" x:Uid="EMail" HorizontalAlignment="Left" Height="30" Margin="200,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
+        <TextBox x:Name="PhoneNum" x:Uid="Phone number" HorizontalAlignment="Left" Height="30" Margin="200,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
+        <TextBox x:Name="AddInfo" x:Uid="Additional information" HorizontalAlignment="Left" Height="80" Margin="200,270,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="18"/>
+        <Button x:Name="ConfirmButton" Content="Confirm" HorizontalAlignment="Left" Height="30" Margin="45,315,0,0" VerticalAlignment="Top" Width="100" FontSize="18" Click="ConfirmButton_Click"/>
     </Grid>
 </Window>

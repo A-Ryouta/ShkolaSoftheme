@@ -1,6 +1,6 @@
 ﻿namespace DoubleLinkedList
 {
-    class DoubleLinkedList<T>
+    internal class DoubleLinkedList<T>
     {
         private ListItem<T> _first;
         private ListItem<T> _last;
@@ -9,7 +9,7 @@
 
         public void AddFirst(T value)
         {
-            ListItem<T> item = new ListItem<T>(value);
+            var item = new ListItem<T>(value);
 
             if (_first == null)
             {
@@ -28,7 +28,7 @@
 
         public void AddLast(T value)
         {
-            ListItem<T> item = new ListItem<T>(value);
+            var item = new ListItem<T>(value);
 
             if (_first == null)
             {
@@ -48,7 +48,7 @@
         public bool Remove(T item)
         {
             ListItem<T> previous = null;
-            ListItem<T> current = _first;
+            var current = _first;
             ListItem<T> next = null;
 
             while (current != null)
@@ -90,7 +90,7 @@
 
         public bool Contains(T item)
         {
-            ListItem<T> current = _first;
+            var current = _first;
 
             while (current != null)
             {
@@ -106,10 +106,10 @@
 
         public T[] ToArray()
         {
-            ListItem<T> current = _first;
-            T[] array = new T[Count];
+            var current = _first;
+            var array = new T[Count];
 
-            for(int i = 0; i < Count; i++)
+            for(var i = 0; i < Count; i++)
             {
                 array[i] = current.Value;
                 current = current.Next;

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarsEnum
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            CarConstructor construction = new CarConstructor();
+            var construction = new CarConstructor();
 
             var bmv = construction.CarConstruct(Engines.NissanEJ3, Colors.Red, Transmissions.Mechanic);
             bmv.Name = "BMV";

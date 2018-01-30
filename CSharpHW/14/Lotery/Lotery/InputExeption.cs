@@ -2,7 +2,7 @@
 
 namespace Lotery
 {
-    class InputExeption : Exception
+    internal class InputExeption : Exception
     {
         public override string Message { get; }
 
